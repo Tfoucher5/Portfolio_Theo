@@ -551,3 +551,35 @@ export const ContactMethod = styled.div`
     font-size: 1.5rem;
   }
 `;
+
+export const ContactLink = styled.a`
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s ease, transform 0.2s ease;
+  position: relative;
+
+  &:hover {
+    color: #4fd1c5;
+    transform: translateX(3px);
+  }
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: scale(1.1);
+  }
+`;
+
+export const ThankYouMessage = styled.p`
+  margin-top: 5rem;
+  font-size: 35px;
+  text-align: center;
+  font-style: italic;
+  opacity: 0.8;
+`;

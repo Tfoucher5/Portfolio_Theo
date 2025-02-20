@@ -1,7 +1,7 @@
 // Portfolio.js
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from 'lucide-react';
 import {
   PageContainer,
   NavBar,
@@ -19,6 +19,8 @@ import {
   ContactInfo,
   ContactMethod,
   ContactForm,
+  ContactLink,
+  ThankYouMessage,
   Input,
   Textarea,
   Button,
@@ -333,14 +335,18 @@ const Portfolio = () => {
               <Github />
               <div>
                 <h4>Github</h4>
-                <a href='https://github.com/TFoucher5'>github.com/TFoucher5</a>
+                <ContactLink href='https://github.com/TFoucher5' target="_blank">
+                  github.com/TFoucher5 <ExternalLink size={18} />
+                </ContactLink>
               </div>
             </ContactMethod>
             <ContactMethod>
               <Linkedin />
               <div>
                 <h4>LinkedIn</h4>
-                <p>linkedin.com/in/username</p>
+                <ContactLink href='https://www.linkedin.com/in/theo-foucher-3956b52a0/' target="_blank">
+                  linkedin.com/theo-foucher <ExternalLink size={18} />
+                </ContactLink>
               </div>
             </ContactMethod>
           </ContactInfo>
@@ -367,6 +373,10 @@ const Portfolio = () => {
             <Button type="submit">
               Envoyer le message
             </Button>
+            <ThankYouMessage>
+              Merci d’avoir pris le temps de visiter mon portfolio et de me contacter si vous avez des questions.
+              J’ai hâte d’échanger avec vous !
+            </ThankYouMessage>
           </ContactForm>
         </ContactContainer>
       </ContactSection>
