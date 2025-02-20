@@ -55,29 +55,29 @@ const Portfolio = () => {
         name: "PHP",
         level: 90,
         image: "/images/php-logo.png", // Assurez-vous d'avoir ces images dans votre dossier public
-        description: "Appris lors de ma formation à l'école 42. Utilisé principalement pour le développement backend et les API REST.",
-        period: "Depuis 2020"
+        description: "Appris lors de ma formation à l'Institut Informatique Appliquée. Utilisé principalement pour le développement backend.",
+        period: "Depuis Octobre 2023"
       },
       {
         name: "HTML",
         level: 95,
         image: "/images/html-logo.png",
         description: "Base de tout développement web, maîtrisé à travers de nombreux projets personnels, scolaire et professionnels.",
-        period: "Depuis 2023"
+        period: "Depuis Septembre 2023"
       },
       {
         name: "CSS",
         level: 85,
         image: "../images/css-logo.png",
         description: "Utilisé en parallèle avec HTML pour la création d'interfaces responsives et modernes.",
-        period: "Depuis 2019"
+        period: "Depuis Septembre 2023"
       },
       {
         name: "JavaScript",
         level: 90,
         image: "/images/js-logo.png",
-        description: "Langage principal pour le développement frontend et backend avec Node.js. Utilisé quotidiennement.",
-        period: "Depuis 2019"
+        description: "Langage principal pour le développement frontend et backend avec Node.js. Utilisé dans la plupart de mes projets.",
+        period: "Depuis Décembre 2023"
       }
     ],
     frameworks: [
@@ -86,28 +86,28 @@ const Portfolio = () => {
         level: 85,
         image: "/images/laravel-logo.png",
         description: "Framework PHP utilisé pour le développement d'applications web complexes.",
-        period: "Depuis 2021"
+        period: "Depuis Septembre 2024"
       },
       {
         name: "NodeJS",
         level: 80,
         image: "/images/nodejs-logo.png",
         description: "Utilisé pour créer des serveurs backend performants et des API REST.",
-        period: "Depuis 2020"
+        period: "Depuis Juillet 2024"
       },
       {
         name: "ReactJS",
-        level: 90,
+        level: 60,
         image: "/images/react-logo.png",
         description: "Framework principal pour le développement frontend. Utilisé dans de nombreux projets.",
-        period: "Depuis 2020"
+        period: "Depuis Février 2025"
       },
       {
         name: "Angular",
         level: 75,
         image: "/images/angular-logo.png",
         description: "Appris et utilisé pour des projets spécifiques nécessitant une architecture robuste.",
-        period: "Depuis 2021"
+        period: "Depuis Juillet 2024"
       }
     ]
   };
@@ -147,34 +147,24 @@ const Portfolio = () => {
 
   const projects = [
     {
-      title: "Application E-commerce",
-      description: "Une plateforme de vente en ligne complète avec panier d'achat et paiement sécurisé.",
-      tags: ["React", "Node.js", "MongoDB", "Stripe"]
+      title: "Bot Discord | Février 2025 ",
+      description: "Bot pour l'application Discord, qui permet de jouer à un jeu de devinnettes de voitures. ",
+      tags: ["Node.Js", "JavaScript", "Discord.js", "Projet Personnel"]
     },
     {
-      title: "Dashboard Analytics",
-      description: "Interface d'administration pour visualiser et analyser les données en temps réel.",
-      tags: ["Vue.js", "D3.js", "Firebase", "TypeScript"]
+      title: "Application Mobile de gestion de pièces détachées | Févrirer 2025",
+      description: "Application mobile Android permettant d'afficher une liste de pièces détachées et d'en ajouter de nouvelles, avec possibilité de voir leur position sur une carte.",
+      tags: ["Kotlin", "Projet Scolaire"]
     },
     {
-      title: "Application Mobile",
-      description: "Application mobile cross-platform pour la gestion de tâches et la productivité.",
-      tags: ["React Native", "Redux", "Node.js", "MongoDB"]
+      title: "Application Web de gestion de Plannings | Décembre 2024 à Février 2025",
+      description: "Une plateforme pour l'association Sportive USGPH, afin de gérer les plannings des salariés et faire les compte-rendus des heures travaillées.",
+      tags: ["Laravel", "PHP", "HTML", "CSS", "JavaScript", "Projet Professionnel", "Réalisé en Stage"]
     },
     {
-      title: "Plateforme de Blog",
-      description: "CMS personnalisé avec éditeur WYSIWYG et système de commentaires.",
-      tags: ["Next.js", "GraphQL", "PostgreSQL", "AWS"]
-    },
-    {
-      title: "Portfolio Photographe",
-      description: "Site vitrine avec galerie photos et système de réservation.",
-      tags: ["React", "Gatsby", "Contentful", "Netlify"]
-    },
-    {
-      title: "API REST",
-      description: "API sécurisée pour la gestion de données avec documentation complète.",
-      tags: ["Node.js", "Express", "MongoDB", "JWT"]
+      title: "Refonte d'un outil excel en outil Web | Juin 2024 à Août 2024",
+      description: "Créaion d'un des outils d'une Application Web pour LA POSTE, permettant de gérer les maintenances des différentes applications.",
+      tags: ["Angular", "Node.Js", "Bootstrap", "Oracle", "Projet Professionnel", "Réalisé en Stage"]
     }
   ];
 
@@ -240,6 +230,7 @@ const Portfolio = () => {
                       <SkillCardFront>
                         <SkillIcon src={skill.image} alt={skill.name} />
                         <SkillName>{skill.name}</SkillName>
+                        <SkillLevel level ={skill.level} />
                       </SkillCardFront>
                       <SkillCardBack>
                         <SkillDescription>{skill.description}</SkillDescription>
@@ -266,6 +257,7 @@ const Portfolio = () => {
                       <SkillCardFront>
                         <SkillIcon src={skill.image} alt={skill.name} />
                         <SkillName>{skill.name}</SkillName>
+                        <SkillLevel level ={skill.level} />
                       </SkillCardFront>
                       <SkillCardBack>
                         <SkillDescription>{skill.description}</SkillDescription>

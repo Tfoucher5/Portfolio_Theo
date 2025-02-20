@@ -274,11 +274,11 @@ export const SkillName = styled.h4`
 `;
 
 export const SkillLevel = styled.div`
-  width: 100%;
+  width: 75%;
   height: 6px;
   background-color: #f0f0f0;
   border-radius: 3px;
-  margin-top: 0.5rem;
+  margin-top: 2rem;
   overflow: hidden;
   
   &::after {
