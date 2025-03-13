@@ -1,13 +1,44 @@
-// Portfolio.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from 'lucide-react';
 import {
   PageContainer,
   NavBar,
+  NavContainer,
+  ContactWrapper,
+  LogoContainer,
+  LogoText,
+  LogoAccent,
+  MobileMenuButton,
+  MenuIcon,
   NavLinks,
+  NavItem,
+  NavLink,
+  ContactButton,
   HomeSection,
+  Grid,
+  ColorCircle,
+  TechBadge,
+  Icon,
+  AnimatedLine,
+  ContentContainer,
   AboutSection,
+  AboutCard,
+  AboutContent,
+  AboutDescription,
+  AboutTitle,
+  PassionsContainer,
+  PassionHeading,
+  PassionsList,
+  PassionItem,
+  PassionIcon,
+  PassionText,
+  QualitiesContainer,
+  QualitiesHeading,
+  QualitiesList,
+  QualityTag,
+  Quote,
+  Particle,
   ProjectsSection,
   ProjectsContainer,
   ProjectCard,
@@ -42,19 +73,51 @@ import {
   SkillsRow,
   SkillsColumn,
   SkillsList,
+  SkillTag,
   SectionTitle
 } from '../styles/styles';
 
 const Portfolio = () => {
   const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
+  // Logique de navigation intégrée directement
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset;
+      if (scrollTop > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+
+      // Détection de la section active pendant le défilement
+      const sections = ["home", "about", "projects", "skills", "contact"];
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveLink(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const skills = {
     languages: [
       {
         name: "PHP",
         level: 90,
-        image: "/images/php-logo.png", // Assurez-vous d'avoir ces images dans votre dossier public
+        image: "/images/php-logo.png",
         description: "Appris lors de ma formation à l'Institut Informatique Appliquée. Utilisé principalement pour le développement backend.",
         period: "Depuis Octobre 2023"
       },
@@ -110,6 +173,18 @@ const Portfolio = () => {
         period: "Depuis Juillet 2024"
       }
     ]
+  };
+
+  // Fonction pour le défilement fluide
+  const scrollToSection = (sectionId) => {
+    const targetElement = document.getElementById(sectionId);
+    if (targetElement) {
+      setActiveLink(sectionId);
+      window.scrollTo({
+        top: targetElement.offsetTop,
+        behavior: 'smooth'
+      });
+    }
   };
 
   // Gestion du défilement fluide
@@ -168,48 +243,425 @@ const Portfolio = () => {
     }
   ];
 
+  const containerRef = useRef(null);
+
+  // Effet pour l'animation au mouvement de la souris
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const x = (clientX / window.innerWidth) - 0.5;
+      const y = (clientY / window.innerHeight) - 0.5;
+
+      const badges = container.querySelectorAll('.tech-badge');
+      badges.forEach(badge => {
+        const speedX = badge.getAttribute('data-speed-x');
+        const speedY = badge.getAttribute('data-speed-y');
+        badge.style.transform = `translate(${x * speedX}px, ${y * speedY}px)`;
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+  };
+
   return (
     <PageContainer>
-      <NavBar>
-        <h1 style={{ color: 'white', margin: 0 }}>Theo Foucher</h1>
-        <NavLinks>
-          <a href="#home">Accueil</a>
-          <a href="#about">À propos</a>
-          <a href="#skills">Compétences</a>
-          <a href="#projects">Projets</a>
-          <a href="#contact">Contact</a>
-        </NavLinks>
+      <NavBar $scrolled={scrolled}>
+        <NavContainer>
+          <LogoContainer>
+            <LogoText>Theo Foucher</LogoText>
+            <LogoAccent>Développeur Web</LogoAccent>
+          </LogoContainer>
+
+          <MobileMenuButton aria-label="Menu" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <MenuIcon open={mobileMenuOpen}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </MenuIcon>
+          </MobileMenuButton>
+
+          <NavLinks $isOpen={mobileMenuOpen}>
+            <NavItem>
+              <NavLink
+                href="#home"
+                onClick={() => {
+                  setActiveLink("home");
+                  setMobileMenuOpen(false);
+                }}
+                $isActive={activeLink === "home"}
+              >
+                Accueil
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                href="#about"
+                onClick={() => {
+                  setActiveLink("about");
+                  setMobileMenuOpen(false);
+                }}
+                $isActive={activeLink === "about"}
+              >
+                Qui Suis-je ?
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                href="#projects"
+                onClick={() => {
+                  setActiveLink("projects");
+                  setMobileMenuOpen(false);
+                }}
+                $isActive={activeLink === "projects"}
+              >
+                Projets
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                href="#skills"
+                onClick={() => {
+                  setActiveLink("skills");
+                  setMobileMenuOpen(false);
+                }}
+                $isActive={activeLink === "skills"}
+              >
+                Compétences
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <ContactWrapper>
+                <ContactButton
+                  href="#contact"
+                  onClick={() => {
+                    setActiveLink("contact");
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Contact
+                </ContactButton>
+              </ContactWrapper>
+            </NavItem>
+          </NavLinks>
+        </NavContainer>
       </NavBar>
 
       <HomeSection id="home">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+        {/* Grille d'arrière-plan */}
+        <Grid />
+
+        {/* Cercles colorés animés */}
+        <ColorCircle
+          style={{ background: '#4158D0', width: '300px', height: '300px', top: '-50px', right: '10%' }}
+          animate={{
+            x: [0, 30, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 10,
+            ease: "easeInOut"
+          }}
+        />
+
+        <ColorCircle
+          style={{ background: '#0093E9', width: '400px', height: '400px', bottom: '-100px', left: '-50px' }}
+          animate={{
+            x: [0, -30, 0],
+            y: [0, -40, 0],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 12,
+            ease: "easeInOut"
+          }}
+        />
+
+        <ColorCircle
+          style={{ background: '#8EC5FC', width: '250px', height: '250px', top: '20%', left: '30%' }}
+          animate={{
+            x: [0, 20, 0],
+            y: [0, -20, 0],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 8,
+            ease: "easeInOut"
+          }}
+        />
+
+        {/* Badges technologiques flottants */}
+        <TechBadge
+          className="tech-badge"
+          data-speed-x="80"
+          data-speed-y="50"
+          style={{ top: '29%', right: '15%' }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
         >
-          <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>
-            Bienvenue sur mon portfolio
-          </h1>
-          <p style={{ fontSize: '1.5rem', maxWidth: '800px', margin: '0 auto' }}>
-            Je suis un développeur web passionné par le code et la création d'applications innovantes
-          </p>
-        </motion.div>
+          <Icon color="#61DAFB">R</Icon>
+          React
+        </TechBadge>
+
+        <TechBadge
+          className="tech-badge"
+          data-speed-x="-60"
+          data-speed-y="-70"
+          style={{ top: '20%', left: '15%' }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
+        >
+          <Icon color="#F7DF1E">JS</Icon>
+          JavaScript
+        </TechBadge>
+
+        <TechBadge
+          className="tech-badge"
+          data-speed-x="90"
+          data-speed-y="-40"
+          style={{ bottom: '15%', left: '25%' }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.8, duration: 0.6 }}
+        >
+          <Icon color="#3498db">L</Icon>
+          Laravel
+        </TechBadge>
+
+        {/* Contenu principal */}
+        <ContentContainer ref={containerRef}>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            style={{ textAlign: 'center' }}
+          >
+            <motion.h1
+              style={{
+                fontSize: 'clamp(2.8rem, 8vw, 4.5rem)',
+                fontWeight: 800,
+                marginBottom: '0.5rem',
+                background: 'linear-gradient(90deg, #ffffff, #88c8ff)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0 10px 30px rgba(0, 0, 0, 0.2)'
+              }}
+              animate={{
+                y: [0, -10, 0]
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 5,
+                ease: "easeInOut"
+              }}
+            >
+              Bienvenue sur mon portfolio
+            </motion.h1>
+
+            <AnimatedLine
+              initial={{ width: 0 }}
+              animate={{ width: '150px' }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+            />
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            style={{ textAlign: 'center' }}
+            transition={{ delay: 0.4 }}
+          >
+            <p style={{
+              fontSize: 'clamp(1.2rem, 4vw, 1.8rem)',
+              maxWidth: '800px',
+              margin: '0 auto',
+              lineHeight: 1.6,
+              fontWeight: 300,
+              textShadow: '0 2px 5px rgba(0, 0, 0, 0.2)'
+            }}>
+              Je suis un développeur passionné par le code et la création d'applications innovantes
+            </p>
+          </motion.div>
+
+          {/* boutons pour naviguer vers les sections */}
+          <motion.div
+            style={{ display: 'flex', gap: '20px', marginTop: '2.5rem' }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+          >
+            <motion.button
+              onClick={() => scrollToSection('projects')}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(0, 198, 255, 0.5)' }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                padding: '1rem 2.5rem',
+                fontSize: '1.1rem',
+                background: 'linear-gradient(90deg, #00c6ff 0%, #0072ff 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '30px',
+                cursor: 'pointer',
+                fontWeight: 600,
+                boxShadow: '0 10px 20px rgba(0, 114, 255, 0.3)'
+              }}
+            >
+              Découvrir mes projets
+            </motion.button>
+
+            <motion.button
+              onClick={() => scrollToSection('contact')}
+              whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                padding: '1rem 2.5rem',
+                fontSize: '1.1rem',
+                backgroundColor: 'transparent',
+                color: 'white',
+                border: '2px solid white',
+                borderRadius: '30px',
+                cursor: 'pointer',
+                fontWeight: 600,
+                backdropFilter: 'blur(5px)'
+              }}
+            >
+              Me contacter
+            </motion.button>
+          </motion.div>
+
+          {/* Scroll pour explorer */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+            style={{
+              position: 'absolute',
+              top: '38rem',
+              bottom: '30px',
+              left: '50%', // Center horizontally
+              transform: 'translateX(-50%)', // Ensure perfect centering
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '10px',
+              zIndex: 5 // Add z-index to ensure it's above other elements
+            }}
+          >
+            <motion.p style={{ fontSize: '0.9rem', opacity: 0.7 }}>
+              Scroll pour explorer
+            </motion.p>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10L12 15L17 10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </motion.div>
+          </motion.div>
+        </ContentContainer>
       </HomeSection>
 
       <AboutSection id="about">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-        >
-          <h2>À propos de moi</h2>
-          <p>
-            Je suis un développeur web passionné par la création d'applications et d'expériences interactives.
-            Mon expertise couvre l'ensemble du stack de développement, de la conception à la mise en production.
-          </p>
-        </motion.div>
+        {[...Array(20)].map((_, i) => (
+          <Particle
+            key={i}
+            left={Math.random() * 100}
+            top={Math.random() * 100}
+            duration={Math.random() * 15 + 10}
+          />
+        ))}
+        <AboutContent>
+          <AboutTitle>Qui Suis-je ?</AboutTitle>
+          <AboutCard>
+            <AboutDescription>
+              Je suis un développeur web passionné qui transforme des idées en expériences numériques captivantes. Mon aventure dans le monde du code a commencé en classe de seconde, lors d'un cours de SNT où la création d'une simple page HTML m'a ouvert les portes d'un univers de possibilités créatives. C'est cette sensation unique de voir le code prendre forme et donner vie à mes idées qui m'anime chaque jour.
+            </AboutDescription>
+
+            <PassionsContainer>
+              <PassionHeading>Mes Passions</PassionHeading>
+              <PassionsList>
+                <PassionItem>
+                  <PassionIcon>🚗</PassionIcon>
+                  <PassionText>Automobile</PassionText>
+                </PassionItem>
+                <PassionItem>
+                  <PassionIcon>🎵</PassionIcon>
+                  <PassionText>Musique</PassionText>
+                </PassionItem>
+                <PassionItem>
+                  <PassionIcon>🏃</PassionIcon>
+                  <PassionText>Sport</PassionText>
+                </PassionItem>
+                <PassionItem>
+                  <PassionIcon>💻</PassionIcon>
+                  <PassionText>Développement</PassionText>
+                </PassionItem>
+              </PassionsList>
+            </PassionsContainer>
+
+            <QualitiesContainer>
+              <QualitiesHeading>Mes Qualités</QualitiesHeading>
+              <QualitiesList>
+                <QualityTag>Créativité</QualityTag>
+                <QualityTag>Autonomie</QualityTag>
+                <QualityTag>Résolution de problèmes</QualityTag>
+                <QualityTag>Adaptabilité</QualityTag>
+                <QualityTag>Attention aux détails</QualityTag>
+              </QualitiesList>
+            </QualitiesContainer>
+
+            <QualitiesContainer>
+              <QualitiesHeading>Mon parcours scolaire</QualitiesHeading>
+                <QualitiesList>
+                  <QualityTag>BTS SIO (en cours) | Institut Informatique Appliquée Saint-Nazaire(44)</QualityTag>
+                  <QualityTag>Baccalauréat Général | Notre Dame D'Espérance Saint-Nazaire(44)</QualityTag>
+                </QualitiesList>
+            </QualitiesContainer>
+
+            <Quote>
+              "Le code est comme une toile vierge où chaque ligne écrite est un coup de pinceau vers la création d'une œuvre numérique."
+            </Quote>
+          </AboutCard>
+        </AboutContent>
       </AboutSection>
+
+      <ProjectsSection id="projects">
+        <SectionTitle>Mes Projets</SectionTitle>
+        <ProjectsContainer>
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={index}
+              position={index % 2 === 0 ? 'left' : 'right'}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              whileHover={{ scale: 1.03 }}
+            >
+              <ProjectTitle>{project.title}</ProjectTitle>
+              <p>{project.description}</p>
+              <ProjectTags>
+                {project.tags.map((tag, tagIndex) => (
+                  <Tag key={tagIndex}>{tag}</Tag>
+                ))}
+              </ProjectTags>
+            </ProjectCard>
+          ))}
+        </ProjectsContainer>
+      </ProjectsSection>
 
       <SkillsSection id="skills">
         <SectionTitle>Mes Compétences</SectionTitle>
@@ -230,7 +682,7 @@ const Portfolio = () => {
                       <SkillCardFront>
                         <SkillIcon src={skill.image} alt={skill.name} />
                         <SkillName>{skill.name}</SkillName>
-                        <SkillLevel level ={skill.level} />
+                        <SkillLevel level={skill.level} />
                       </SkillCardFront>
                       <SkillCardBack>
                         <SkillDescription>{skill.description}</SkillDescription>
@@ -257,7 +709,7 @@ const Portfolio = () => {
                       <SkillCardFront>
                         <SkillIcon src={skill.image} alt={skill.name} />
                         <SkillName>{skill.name}</SkillName>
-                        <SkillLevel level ={skill.level} />
+                        <SkillLevel level={skill.level} />
                       </SkillCardFront>
                       <SkillCardBack>
                         <SkillDescription>{skill.description}</SkillDescription>
@@ -271,31 +723,6 @@ const Portfolio = () => {
           </SkillsRow>
         </SkillsContainer>
       </SkillsSection>
-
-      <ProjectsSection id="projects">
-        <h2>Mes Projets</h2>
-        <ProjectsContainer>
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={index}
-              position={index % 2 === 0 ? 'left' : 'right'}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              whileHover={{ scale: 1.03 }}
-            >
-              <ProjectTitle>{project.title}</ProjectTitle>
-              <p>{project.description}</p>
-              <ProjectTags>
-                {project.tags.map((tag, tagIndex) => (
-                  <Tag key={tagIndex}>{tag}</Tag>
-                ))}
-              </ProjectTags>
-            </ProjectCard>
-          ))}
-        </ProjectsContainer>
-      </ProjectsSection>
 
       <ContactSection id="contact">
         <SectionTitle style={{ color: 'white' }}>Contactez-moi</SectionTitle>
