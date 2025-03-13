@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from 'lucide-react';
 import {
@@ -58,59 +58,166 @@ import {
   SkillsSection,
   SkillsContainer,
   SkillsCategoryTitle,
-  SkillsGrid,
   SkillCard,
   SkillIcon,
-  SkillInfo,
   SkillDescription,
   SkillPeriod,
   SkillName,
   SkillCardInner,
   SkillCardBack,
-  SkillCardFace,
   SkillCardFront,
   SkillLevel,
   SkillsRow,
   SkillsColumn,
   SkillsList,
-  SkillTag,
   SectionTitle
 } from '../styles/styles';
 
+import emailjs from '@emailjs/browser';
+
 const Portfolio = () => {
-  const [message, setMessage] = useState('');
-  const [email, setEmail] = useState('');
-  // Logique de navigation intégrée directement
+
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const messageRef = useRef();
+
+  const [formStatus, setFormStatus] = useState({ show: false, success: false, message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset;
-      if (scrollTop > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+  const formRef = useRef();
 
-      // Détection de la section active pendant le défilement
-      const sections = ["home", "about", "projects", "skills", "contact"];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveLink(section);
-            break;
+  useEffect(() => {
+    let timer;
+    if (formStatus.show) {
+      timer = setTimeout(() => {
+        setFormStatus({ show: false, success: false, message: '' });
+      }, 5000);
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [formStatus.show]);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollTop = window.pageYOffset;
+          if (scrollTop > 50) {
+            setScrolled(true);
+          } else {
+            setScrolled(false);
           }
-        }
+
+          // Détection de la section active pendant le défilement
+          const sections = ["home", "about", "projects", "skills", "contact"];
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              if (rect.top <= 100 && rect.bottom >= 100) {
+                setActiveLink(section);
+                break;
+              }
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleInputChange = useCallback(() => { }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Initialiser emailjs avec votre User ID (à configurer sur emailjs.com)
+      // emailjs.init("VOTRE_USER_ID_EMAILJS");
+
+      const result = await emailjs.sendForm(
+        'YOUR_SERVICE_ID', // Remplacer par votre Service ID EmailJS
+        'YOUR_TEMPLATE_ID', // Remplacer par votre Template ID EmailJS
+        {
+          user_name: nameRef.current.value,
+          user_email: emailRef.current.value,
+          message: messageRef.current.value
+        },
+        'YOUR_PUBLIC_KEY' // Remplacer par votre clé publique EmailJS
+      );
+
+      if (result.text === 'OK') {
+        setFormStatus({
+          show: true,
+          success: true,
+          message: 'Message envoyé avec succès !'
+        });
+
+        nameRef.current.value = '';
+        emailRef.current.value = '';
+        messageRef.current.value = '';
+      } else {
+        throw new Error('Erreur lors de l\'envoi du message');
+      }
+    } catch (error) {
+      setFormStatus({
+        show: true,
+        success: false,
+        message: 'Erreur lors de l\'envoi. Veuillez réessayer.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const Notification = () => {
+    if (!formStatus.show) return null;
+
+    return (
+      <div style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        padding: '15px 20px',
+        borderRadius: '5px',
+        backgroundColor: formStatus.success ? '#4CAF50' : '#F44336',
+        color: 'white',
+        boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+        zIndex: 1000,
+        animation: 'fadeIn 0.3s ease-out',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}>
+        <span>{formStatus.message}</span>
+        <button
+          onClick={() => setFormStatus({ show: false, success: false, message: '' })}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            color: 'white',
+            marginLeft: '15px',
+            cursor: 'pointer',
+            fontSize: '18px'
+          }}
+        >
+          ×
+        </button>
+      </div>
+    );
+  };
 
   const skills = {
     languages: [
@@ -212,13 +319,6 @@ const Portfolio = () => {
       });
     };
   }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Message envoyé:', { email, message });
-    setMessage('');
-    setEmail('');
-  };
 
   const projects = [
     {
@@ -625,11 +725,11 @@ const Portfolio = () => {
 
             <QualitiesContainer>
               <QualitiesHeading>Mon parcours scolaire</QualitiesHeading>
-                <QualitiesList>
-                  <QualityTag>BTS SIO (en cours) | Institut Informatique Appliquée Saint-Nazaire(44)</QualityTag>
-                  <QualityTag>Baccalauréat Général | Notre Dame D'Espérance Saint-Nazaire(44)</QualityTag>
-                </QualitiesList>
-            </QualitiesContainer> 
+              <QualitiesList>
+                <QualityTag>BTS SIO (en cours) | Institut Informatique Appliquée Saint-Nazaire(44)</QualityTag>
+                <QualityTag>Baccalauréat Général | Notre Dame D'Espérance Saint-Nazaire(44)</QualityTag>
+              </QualitiesList>
+            </QualitiesContainer>
           </AboutCard>
         </AboutContent>
       </AboutSection>
@@ -766,36 +866,43 @@ const Portfolio = () => {
             </ContactMethod>
           </ContactInfo>
 
-          <ContactForm onSubmit={handleSubmit}>
+          <ContactForm
+            ref={formRef}
+            onSubmit={handleSubmit}
+          >
             <Input
               type="text"
+              name="user_name"
               placeholder="Votre nom"
               required
+              ref={nameRef}
             />
             <Input
               type="email"
+              name="user_email"
               placeholder="Votre email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               required
+              ref={emailRef}
             />
             <Textarea
+              name="message"
               placeholder="Votre message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
               required
+              ref={messageRef}
             />
-            <Button type="submit">
-              Envoyer le message
+
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
             </Button>
             <ThankYouMessage>
-            <Quote>
-              "Le code est comme une toile vierge où chaque ligne écrite est un coup de pinceau vers la création d'une œuvre numérique."
-            </Quote>
+              <Quote>
+                "Le code est comme une toile vierge où chaque ligne écrite est un coup de pinceau vers la création d'une œuvre numérique."
+              </Quote>
             </ThankYouMessage>
           </ContactForm>
         </ContactContainer>
       </ContactSection>
+      <Notification />
     </PageContainer>
   );
 };

@@ -550,49 +550,85 @@ export const QualityTag = styled.span`
 
 export const Quote = styled.blockquote`
   font-style: italic;
-  color: #a0a0a0;
-  border-left: 3px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  border-left: 3px solid rgba(100, 255, 218, 0.5);
   padding-left: 1rem;
   margin: 2rem 0;
-  font-size: 2rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
 `;
 
 export const ProjectsSection = styled(Section)`
-  background-color: #f7f7f7;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  color: white;
   padding: 6rem 2rem;
   min-height: auto;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 1;
+  }
 `;
 
 export const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  color: #333;
+  font-size: 3rem;
+  color: white;
   text-align: center;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   position: relative;
+  z-index: 2;
   
   &::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
+    width: 80px;
     height: 4px;
-    background-color: #e91e63;
+    background: linear-gradient(90deg, #64ffda, #3d84ff);
     border-radius: 2px;
   }
 `;
 
 export const SkillsSection = styled(Section)`
-  background-color: #f9f9f9;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+  color: white;
   padding: 6rem 2rem;
   min-height: auto;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 1;
+  }
 `;
 
 export const SkillsContainer = styled.div`
   max-width: 1400px;
   margin: 2rem auto;
   padding: 2rem;
+  position: relative;
+  z-index: 2;
 `;
 
 export const SkillsRow = styled.div`
@@ -616,14 +652,30 @@ export const SkillsList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  margin: 1.5rem 0; 
+  margin: 1.5rem 0;
 `;
 
 export const SkillsCategoryTitle = styled.h3`
-  font-size: 1.8rem;
-  color: #444;
+  font-size: 2rem;
+  background: linear-gradient(45deg, #64ffda, #3d84ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
   margin-bottom: 3rem;
   text-align: center;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #64ffda, #3d84ff);
+    border-radius: 2px;
+  }
 `;
 
 export const SkillsGrid = styled.div`
@@ -671,7 +723,7 @@ export const SkillCardFace = styled.div`
   height: 100%;
   backface-visibility: hidden;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -680,11 +732,15 @@ export const SkillCardFace = styled.div`
 `;
 
 export const SkillCardFront = styled(SkillCardFace)`
-  background: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 export const SkillCardBack = styled(SkillCardFace)`
-  background: #e91e63;
+  background: linear-gradient(135deg, rgba(100, 255, 218, 0.2), rgba(61, 132, 255, 0.2));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   transform: rotateY(180deg);
 `;
@@ -694,6 +750,7 @@ export const SkillIcon = styled.img`
   height: 80px;
   object-fit: contain;
   margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(100, 255, 218, 0.3));
 `;
 
 export const SkillInfo = styled.div`
@@ -711,11 +768,15 @@ export const SkillDescription = styled.p`
 export const SkillPeriod = styled.span`
   font-size: 0.9rem;
   font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
 `;
 
 export const SkillName = styled.h4`
   font-size: 1.4rem;
-  color: #333;
+  background: linear-gradient(45deg, #64ffda, #3d84ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
   margin: 0;
   padding: 0;
 `;
@@ -723,7 +784,7 @@ export const SkillName = styled.h4`
 export const SkillLevel = styled.div`
   width: 75%;
   height: 6px;
-  background-color: #f0f0f0;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
   margin-top: 2rem;
   overflow: hidden;
@@ -733,7 +794,7 @@ export const SkillLevel = styled.div`
     display: block;
     width: ${props => props.level}%;
     height: 100%;
-    background-color: #e91e63;
+    background: linear-gradient(90deg, #64ffda, #3d84ff);
     border-radius: 3px;
     transition: width 1s ease-in-out;
   }
@@ -744,6 +805,7 @@ export const ProjectsContainer = styled.div`
   margin: 0 auto;
   position: relative;
   padding: 3rem 2rem;
+  z-index: 2;
 
   &::before {
     content: '';
@@ -752,17 +814,19 @@ export const ProjectsContainer = styled.div`
     left: 50%;
     width: 2px;
     height: 100%;
-    background: #e91e63;
+    background: linear-gradient(to bottom, #64ffda, #3d84ff);
     transform: translateX(-50%);
   }
 `;
 
 export const ProjectCard = styled(motion.div)`
-  background: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: calc(50% - 100px); /* Reduced width to move cards further from center */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: calc(50% - 100px);
   position: relative;
   margin: 2rem 0;
   
@@ -771,11 +835,11 @@ export const ProjectCard = styled(motion.div)`
     &::after {
       content: '';
       position: absolute;
-      right: -3rem; /* Increased from -50px to -100px */
+      right: -3rem;
       top: 50%;
-      width: 55px; /* Increased from 50px to 100px */
+      width: 55px;
       height: 2px;
-      background: #e91e63;
+      background: linear-gradient(90deg, transparent, #64ffda);
       transform: translateY(-50%);
     }
   ` : `
@@ -783,11 +847,11 @@ export const ProjectCard = styled(motion.div)`
     &::after {
       content: '';
       position: absolute;
-      left: -3rem; /* Increased from -50px to -100px */
+      left: -3rem;
       top: 50%;
-      width: 55px; /* Increased from 50px to 100px */
+      width: 55px;
       height: 2px;
-      background: #e91e63;
+      background: linear-gradient(90deg, #3d84ff, transparent);
       transform: translateY(-50%);
     }
   `}
@@ -797,42 +861,60 @@ export const ProjectCard = styled(motion.div)`
     position: absolute;
     width: 16px;
     height: 16px;
-    background: #e91e63;
-    border: 4px solid #f7f7f7;
+    background: linear-gradient(90deg, #64ffda, #3d84ff);
+    border: 4px solid #1a2a3a;
     border-radius: 50%;
     top: 50%;
-    ${props => props.position === 'left' ? 'right: -3rem;' : 'left: -3rem;'} /* Adjusted from -62px to -112px */
+    ${props => props.position === 'left' ? 'right: -3rem;' : 'left: -3rem;'}
     transform: translateY(-50%);
     z-index: 1;
     box-sizing: content-box;
   }
+  
+  &:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 `;
 
 export const ProjectTitle = styled.h3`
-  color: #e91e63;
+  background: linear-gradient(45deg, #64ffda, #3d84ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 `;
 
 export const ProjectTags = styled.div`
   display: flex;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   flex-wrap: wrap;
 `;
 
 export const Tag = styled.span`
-  background: #f0f0f0;
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.4rem 0.9rem;
+  border-radius: 50px;
   font-size: 0.9rem;
-  color: #666;
+  color: white;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+  }
 `;
 
 export const ContactSection = styled(Section)`
-  background: #1a1a1a;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
   color: white;
   position: relative;
   overflow: hidden;
+  padding: 6rem 2rem;
   
   &::before {
     content: '';
@@ -841,10 +923,9 @@ export const ContactSection = styled(Section)`
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-      radial-gradient(circle at 20% 20%, #e91e63 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, #2196f3 0%, transparent 50%);
-    opacity: 0.1;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
     z-index: 1;
   }
 `;
@@ -867,13 +948,92 @@ export const ContactContainer = styled.div`
 export const ContactInfo = styled.div`
   padding: 2rem;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
   backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
   
   h3 {
     font-size: 1.8rem;
     margin-bottom: 2rem;
-    color: #e91e63;
+    background: linear-gradient(45deg, #64ffda, #3d84ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #64ffda, #3d84ff);
+      border-radius: 2px;
+    }
+  }
+  
+  h4 {
+    color: #f5f5f5;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+  }
+  
+  p {
+    margin: 0;
+    color: #e0e0e0;
+  }
+`;
+
+export const ContactMethod = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  svg {
+    min-width: 24px;
+  }
+`;
+
+export const ContactLink = styled.a`
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s ease, transform 0.2s ease;
+  position: relative;
+
+  &:hover {
+    color: #64ffda;
+    transform: translateX(3px);
+  }
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: scale(1.1);
   }
 `;
 
@@ -883,6 +1043,13 @@ export const ContactForm = styled.form`
   background: rgba(255, 255, 255, 0.05);
   border-radius: 20px;
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
   
   &::before {
     content: '';
@@ -891,9 +1058,10 @@ export const ContactForm = styled.form`
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, #e91e63, #2196f3);
+    background: linear-gradient(45deg, #64ffda, #3d84ff);
     border-radius: 22px;
     z-index: -1;
+    opacity: 0.4;
   }
 `;
 
@@ -901,7 +1069,7 @@ export const Input = styled.input`
   width: 100%;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.1);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: white;
   font-size: 1rem;
@@ -915,6 +1083,8 @@ export const Input = styled.input`
   &:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.15);
+    border-color: #64ffda;
+    box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
   }
 `;
 
@@ -922,13 +1092,14 @@ export const Textarea = styled.textarea`
   width: 100%;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.1);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: white;
   font-size: 1rem;
   min-height: 150px;
   margin-bottom: 1rem;
   transition: all 0.3s ease;
+  resize: vertical;
   
   &::placeholder {
     color: rgba(255, 255, 255, 0.5);
@@ -937,16 +1108,19 @@ export const Textarea = styled.textarea`
   &:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.15);
+    border-color: #64ffda;
+    box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
   }
 `;
 
 export const Button = styled.button`
   padding: 1rem 2rem;
-  background: linear-gradient(45deg, #e91e63, #2196f3);
+  background: linear-gradient(45deg, #64ffda, #3d84ff);
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -962,7 +1136,7 @@ export const Button = styled.button`
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.3),
       transparent
     );
     transition: 0.5s;
@@ -974,57 +1148,11 @@ export const Button = styled.button`
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
   }
 `;
 
-export const ContactMethod = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(5px);
-  }
-  
-  svg {
-    color: #e91e63;
-    font-size: 1.5rem;
-  }
-`;
-
-export const ContactLink = styled.a`
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  transition: color 0.3s ease, transform 0.2s ease;
-  position: relative;
-
-  &:hover {
-    color: #4fd1c5;
-    transform: translateX(3px);
-  }
-
-  svg {
-    transition: transform 0.2s ease;
-  }
-
-  &:hover svg {
-    transform: scale(1.1);
-  }
-`;
-
-export const ThankYouMessage = styled.p`
-  margin-top: 5rem;
-  font-style: italic;
+export const ThankYouMessage = styled.div`
+  margin-top: 2rem;
   opacity: 0.8;
 `;
