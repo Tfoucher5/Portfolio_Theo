@@ -554,7 +554,7 @@ export const Quote = styled.blockquote`
   border-left: 3px solid rgba(255, 255, 255, 0.2);
   padding-left: 1rem;
   margin: 2rem 0;
-  font-size: 1.1rem;
+  font-size: 2rem;
 `;
 
 export const ProjectsSection = styled(Section)`
@@ -1025,8 +1025,6 @@ export const ContactLink = styled.a`
 
 export const ThankYouMessage = styled.p`
   margin-top: 5rem;
-  font-size: 35px;
-  text-align: center;
   font-style: italic;
   opacity: 0.8;
 `;

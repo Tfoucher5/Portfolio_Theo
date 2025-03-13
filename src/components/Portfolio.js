@@ -278,7 +278,7 @@ const Portfolio = () => {
         <NavContainer>
           <LogoContainer>
             <LogoText>Theo Foucher</LogoText>
-            <LogoAccent>Développeur Web</LogoAccent>
+            <LogoAccent>Développeur</LogoAccent>
           </LogoContainer>
 
           <MobileMenuButton aria-label="Menu" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -629,11 +629,7 @@ const Portfolio = () => {
                   <QualityTag>BTS SIO (en cours) | Institut Informatique Appliquée Saint-Nazaire(44)</QualityTag>
                   <QualityTag>Baccalauréat Général | Notre Dame D'Espérance Saint-Nazaire(44)</QualityTag>
                 </QualitiesList>
-            </QualitiesContainer>
-
-            <Quote>
-              "Le code est comme une toile vierge où chaque ligne écrite est un coup de pinceau vers la création d'une œuvre numérique."
-            </Quote>
+            </QualitiesContainer> 
           </AboutCard>
         </AboutContent>
       </AboutSection>
@@ -793,8 +789,9 @@ const Portfolio = () => {
               Envoyer le message
             </Button>
             <ThankYouMessage>
-              Merci d’avoir pris le temps de visiter mon portfolio et de me contacter si vous avez des questions.
-              J’ai hâte d’échanger avec vous !
+            <Quote>
+              "Le code est comme une toile vierge où chaque ligne écrite est un coup de pinceau vers la création d'une œuvre numérique."
+            </Quote>
             </ThankYouMessage>
           </ContactForm>
         </ContactContainer>
