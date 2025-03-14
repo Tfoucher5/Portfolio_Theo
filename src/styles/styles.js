@@ -295,6 +295,10 @@ export const TechBadge = styled(motion.div)`
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   z-index: 3;
   border: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 // Icône
@@ -804,9 +808,9 @@ export const ProjectsContainer = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   position: relative;
-  padding: 3rem 2rem;
+  padding: 3rem 1rem;
   z-index: 2;
-
+  
   &::before {
     content: '';
     position: absolute;
@@ -816,6 +820,15 @@ export const ProjectsContainer = styled.div`
     height: 100%;
     background: linear-gradient(to bottom, #64ffda, #3d84ff);
     transform: translateX(-50%);
+    
+    @media (max-width: 768px) {
+      left: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    padding: 2rem 0.1rem;
+    margin-right: 8rem;
   }
 `;
 
@@ -823,7 +836,7 @@ export const ProjectCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 15px;
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
   width: calc(50% - 100px);
@@ -855,7 +868,7 @@ export const ProjectCard = styled(motion.div)`
       transform: translateY(-50%);
     }
   `}
-
+  
   &::before {
     content: '';
     position: absolute;
@@ -865,7 +878,7 @@ export const ProjectCard = styled(motion.div)`
     border: 4px solid #1a2a3a;
     border-radius: 50%;
     top: 50%;
-    ${props => props.position === 'left' ? 'right: -3rem;' : 'left: -3rem;'}
+    ${props => props.position === 'left' ? 'right: -4rem;' : 'left: -4rem;'}
     transform: translateY(-50%);
     z-index: 1;
     box-sizing: content-box;
@@ -877,6 +890,25 @@ export const ProjectCard = styled(motion.div)`
   }
   
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  @media (max-width: 768px) {
+    width: calc(100% - 50px);
+    margin-left: 40px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    
+    &::before {
+      left: -35px;
+      right: auto;
+    }
+    
+    &::after {
+      left: -35px;
+      right: auto;
+      width: 20px;
+      top: 50%;
+    }
+  }
 `;
 
 export const ProjectTitle = styled.h3`
@@ -886,6 +918,10 @@ export const ProjectTitle = styled.h3`
   color: transparent;
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+  }
 `;
 
 export const ProjectTags = styled.div`
@@ -906,6 +942,11 @@ export const Tag = styled.span`
   &:hover {
     background: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -941,6 +982,7 @@ export const ContactContainer = styled.div`
   
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
+    margin-right: 4rem;
     gap: 2rem;
   }
 `;
