@@ -1156,3 +1156,27 @@ export const ThankYouMessage = styled.div`
   margin-top: 2rem;
   opacity: 0.8;
 `;
+
+export const ScrollToTopButton = styled(motion.button)`
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 114, 255, 0.5);
+  }
+`;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, ExternalLink, ArrowUp } from 'lucide-react';
 import {
   PageContainer,
+  ScrollToTopButton,
   NavBar,
   NavContainer,
   ContactWrapper,
@@ -86,8 +87,23 @@ const Portfolio = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   const formRef = useRef();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 300) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
 
   useEffect(() => {
     let timer;
@@ -145,7 +161,7 @@ const Portfolio = () => {
 
       const result = await emailjs.sendForm(
         'service_k83ok4p',
-        'template_7d4yg2r', 
+        'template_7d4yg2r',
         formRef.current,
         'w6NDEY7NgIYKuy474'
       );
@@ -365,8 +381,29 @@ const Portfolio = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <PageContainer>
+      <AnimatePresence>
+        {showScrollButton && (
+          <ScrollToTopButton
+            onClick={scrollToTop}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <ArrowUp size={24} />
+          </ScrollToTopButton>
+        )}
+      </AnimatePresence>
       <NavBar $scrolled={scrolled}>
         <NavContainer>
           <LogoContainer>
