@@ -137,25 +137,17 @@ const Portfolio = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleInputChange = useCallback(() => { }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Initialiser emailjs avec votre User ID (à configurer sur emailjs.com)
-      // emailjs.init("VOTRE_USER_ID_EMAILJS");
 
       const result = await emailjs.sendForm(
-        'YOUR_SERVICE_ID', // Remplacer par votre Service ID EmailJS
-        'YOUR_TEMPLATE_ID', // Remplacer par votre Template ID EmailJS
-        {
-          user_name: nameRef.current.value,
-          user_email: emailRef.current.value,
-          message: messageRef.current.value
-        },
-        'YOUR_PUBLIC_KEY' // Remplacer par votre clé publique EmailJS
+        'service_k83ok4p',
+        'template_7d4yg2r', 
+        formRef.current,
+        'w6NDEY7NgIYKuy474'
       );
 
       if (result.text === 'OK') {
@@ -172,10 +164,11 @@ const Portfolio = () => {
         throw new Error('Erreur lors de l\'envoi du message');
       }
     } catch (error) {
+      console.error("Erreur lors de l'envoi:", error);
       setFormStatus({
         show: true,
         success: false,
-        message: 'Erreur lors de l\'envoi. Veuillez réessayer.'
+        message: `Erreur: ${error.text || error.message || "Problème inconnu"}`
       });
     } finally {
       setIsSubmitting(false);
@@ -338,7 +331,7 @@ const Portfolio = () => {
     },
     {
       title: "Refonte d'un outil excel en outil Web | Juin 2024 à Août 2024",
-      description: "Créaion d'un des outils d'une Application Web pour LA POSTE, permettant de gérer les maintenances des différentes applications.",
+      description: "Création d'un des outils d'une Application Web pour LA POSTE, permettant de gérer les maintenances des différentes applications.",
       tags: ["Angular", "Node.Js", "Bootstrap", "Oracle", "Projet Professionnel", "Réalisé en Stage"]
     }
   ];
