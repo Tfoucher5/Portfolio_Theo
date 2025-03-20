@@ -330,15 +330,16 @@ const Portfolio = () => {
   }, []);
 
   const projects = [
+    
+    {
+      title: "Application Lourde de calcul du chemin le plus rapide a vol d'oiseau. | Mars 2025",
+      description: "Application lourde permettant de calculer le chemin le plus rapide entre deux points en passant par plusieurs villes étapes (en France) à vol d'oiseau.",
+      tags: ["C#", "HTML",  "CSS",  "JavaScript",  "Blazor", "Projet Scolaire"]
+    },
     {
       title: "Bot Discord | Février 2025 ",
       description: "Bot pour l'application Discord, qui permet de jouer à un jeu de devinnettes de voitures. ",
       tags: ["Node.Js", "JavaScript", "Discord.js", "Projet Personnel"]
-    },
-    {
-      title: "Application Mobile de gestion de pièces détachées | Févrirer 2025",
-      description: "Application mobile Android permettant d'afficher une liste de pièces détachées et d'en ajouter de nouvelles, avec possibilité de voir leur position sur une carte.",
-      tags: ["Kotlin", "Projet Scolaire"]
     },
     {
       title: "Application Web de gestion de Plannings | Décembre 2024 à Février 2025",
