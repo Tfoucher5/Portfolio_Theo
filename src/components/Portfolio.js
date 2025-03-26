@@ -330,11 +330,11 @@ const Portfolio = () => {
   }, []);
 
   const projects = [
-    
+
     {
       title: "Application Lourde de calcul du chemin le plus rapide a vol d'oiseau. | Mars 2025",
       description: "Application lourde permettant de calculer le chemin le plus rapide entre deux points en passant par plusieurs villes étapes (en France) à vol d'oiseau.",
-      tags: ["C#", "HTML",  "CSS",  "JavaScript",  "Blazor", "Projet Scolaire"]
+      tags: ["C#", "HTML", "CSS", "JavaScript", "Blazor", "Projet Scolaire"]
     },
     {
       title: "Bot Discord | Février 2025 ",
@@ -622,7 +622,7 @@ const Portfolio = () => {
               fontWeight: 300,
               textShadow: '0 2px 5px rgba(0, 0, 0, 0.2)'
             }}>
-              Je suis un développeur passionné par le code et la création d'applications innovantes
+              Je suis un développeur passionné par la programmation <br />et la création d'applications innovantes
             </p>
           </motion.div>
 
@@ -738,7 +738,7 @@ const Portfolio = () => {
                 </PassionItem>
                 <PassionItem>
                   <PassionIcon>💻</PassionIcon>
-                  <PassionText>Développement</PassionText>
+                  <PassionText>Programmation</PassionText>
                 </PassionItem>
               </PassionsList>
             </PassionsContainer>
@@ -746,11 +746,11 @@ const Portfolio = () => {
             <QualitiesContainer>
               <QualitiesHeading>Mes Qualités</QualitiesHeading>
               <QualitiesList>
-                <QualityTag>Créativité</QualityTag>
-                <QualityTag>Autonomie</QualityTag>
-                <QualityTag>Résolution de problèmes</QualityTag>
-                <QualityTag>Adaptabilité</QualityTag>
-                <QualityTag>Attention aux détails</QualityTag>
+                <QualityTag>Créatif</QualityTag>
+                <QualityTag>Autonome</QualityTag>
+                <QualityTag>Analytique</QualityTag>
+                <QualityTag>Adaptable</QualityTag>
+                <QualityTag>Minutieux</QualityTag>
               </QualitiesList>
             </QualitiesContainer>
 
